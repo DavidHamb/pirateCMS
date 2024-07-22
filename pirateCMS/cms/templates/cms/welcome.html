@@ -1,9 +1,11 @@
-<html>
-    <head>
-        <title>Pirate CMS</title>
-    </head>
-    <body>
-        <h1>Welcome in Pirate CMS</h1>
-        <p>Version alpha 0.0</p>
-    </body>
-</html>
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Welcome in Pirate CMS</h1>
+<img src="{% static 'cms/pirate.jpg' %}" width="250" height="250">
+<p><span id="version">Version alpha 0.0</span></p>
+<p>Start the adventure</p>
+
+{% endblock %}

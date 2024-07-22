@@ -1,5 +1,11 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+
 <ul>
     {% for case in cases %}
     <li>{{ case.name|upper }}</li>
     {% endfor %}
 </ul>
+
+{% endblock %}
