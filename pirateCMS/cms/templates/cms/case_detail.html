@@ -1,0 +1,18 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+
+<h1>{{ case.name }}</h1>
+
+<ul>
+    <li><strong>Webpage : </strong>{{ case.webpage }}</li><br>
+    <li><strong>IP or Hostname : </strong>{{ case.address }}</li><br>
+    {% if case.description %}
+    <li><strong>Description : </strong>{{ case.description }}</li><br>
+    {% endif %}
+    <li><strong>State : </strong>{{ case.state }}</li><br>
+    <li><strong>Operating system : </strong>{{ case.OS }}</li><br>
+    <li><strong>Last update : </strong>{{ case.last_update }}</li>
+</ul>
+
+{% endblock %}

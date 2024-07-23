@@ -1,0 +1,15 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+
+<h1>Cases</h1>
+
+<a href="{% url 'case-create' %}">Create a new case</a>
+
+<ul>
+    {% for case in cases %}
+    <li><a href="{% url 'case-detail' case.id %}">{{ case.name|upper }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
