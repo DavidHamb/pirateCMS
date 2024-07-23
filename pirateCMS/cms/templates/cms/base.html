@@ -6,6 +6,11 @@
         <link rel="stylesheet" href="{% static 'cms/styles.css' %}">
     </head>
     <body>
+        <nav>
+            <a href="{% url 'cases-list' %}">Cases</a> |
+            <a href="{% url 'welcome' %}">About Pirate CMS</a>
+        </nav>
+        <hr>
 
         {% block content %}{% endblock %}
 

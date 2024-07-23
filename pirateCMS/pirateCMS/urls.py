@@ -20,6 +20,8 @@ from cms import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('welcome/', views.welcome),
-    path('cases_list/', views.cases_list),
+    path('welcome/', views.welcome, name='welcome'),
+    path('cases/', views.cases_list, name='cases-list'),
+    path('cases/<int:id>/', views.case_detail, name='case-detail'),
+    path('cases/add/', views.case_create, name='case-create')
 ]
