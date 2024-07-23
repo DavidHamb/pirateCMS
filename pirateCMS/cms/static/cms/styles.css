@@ -1,0 +1,18 @@
+* { 
+    font-family: Helvetica; 
+}
+
+h1 {
+    color: slateblue; 
+}
+
+#welcome {
+    margin-right: auto;
+    margin-left: auto;
+    width: 500px;
+    text-align: center;
+}
+
+#version {
+    font-style: italic;
+}
