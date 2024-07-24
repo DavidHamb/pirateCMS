@@ -34,5 +34,14 @@ def case_update(request, id):
             return redirect('case-detail', case.id)
     else:
         form = CaseForm(instance=case)
-        
+
     return render (request, 'cms/case_update.html', {'form': form})
+
+def case_delete(request, id):
+    case = Case.objects.get(id=id)
+
+    if request.method == 'POST':
+        case.delete()
+        return redirect('cases-list')
+    
+    return render(request, 'cms/case_delete.html', {'case': case})

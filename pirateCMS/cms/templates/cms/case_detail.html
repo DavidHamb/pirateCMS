@@ -5,6 +5,7 @@
 <h1>{{ case.name }}</h1>
 
 <a href="{% url 'case-update' case.id %}">[Edit]</a>
+<a href="{% url 'case-delete' case.id %}">[Delete]</a>
 <a href="{% url 'cases-list' %}">[Back to cases list]</a>
 
 <ul>
