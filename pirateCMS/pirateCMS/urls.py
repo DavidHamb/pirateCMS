@@ -23,5 +23,6 @@ urlpatterns = [
     path('welcome/', views.welcome, name='welcome'),
     path('cases/', views.cases_list, name='cases-list'),
     path('cases/<int:id>/', views.case_detail, name='case-detail'),
-    path('cases/add/', views.case_create, name='case-create')
+    path('cases/add/', views.case_create, name='case-create'),
+    path('cases/<int:id>/update/', views.case_update, name='case-update'),
 ]
