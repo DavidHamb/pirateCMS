@@ -1,14 +1,25 @@
 {% extends 'cms/base.html' %}
+{% load static %}
 
 {% block content %}
 
 <h1>Delete the case</h1>
 
+<a href="{% url 'cases-list' %}">
+    <img src="{% static 'cms/list_icon.png' %}" class="big_icons" title="Back to cases list">
+</a>
+<a href="{% url 'case-detail' case.id %}">
+    <img  src="{% static 'cms/view_icon.png' %}" class="big_icons" title="Back to case details">
+</a>
+<a href="{% url 'case-update' case.id %}">
+    <img  src="{% static 'cms/edit_icon.png' %}" class="big_icons" title="Edit the case" width="50" height="50">
+</a>
+
 <p>Are you sure you want to delete the case : <strong>{{ case.name }}</strong> ?</p>
 
 <form action="" method="post">
     {% csrf_token %}
-    <input type="submit" value="Confirm deletion">
+    <input class="submit_btn" type="submit" value="CONFIRM DELETION">
 </form>
 
 {% endblock %}

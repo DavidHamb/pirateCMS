@@ -1,13 +1,24 @@
 {% extends 'cms/base.html' %}
+{% load static %}
 
 {% block content %}
 
 <h1>Update the case</h1>
 
+<a href="{% url 'cases-list' %}">
+    <img src="{% static 'cms/list_icon.png' %}" class="big_icons" title="Back to cases list">
+</a>
+<a href="{% url 'case-detail' case.id %}">
+    <img  src="{% static 'cms/view_icon.png' %}" class="big_icons" title="Back to case details">
+</a>
+<a href="{% url 'case-delete' case.id %}">
+    <img  src="{% static 'cms/delete_icon.png' %}" class="big_icons" title="Delete the case" width="50" height="50">
+</a>
+
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Update">
+    <input type="submit" value="MODIFY" class="submit_btn">
 </form>
 
 {% endblock %}

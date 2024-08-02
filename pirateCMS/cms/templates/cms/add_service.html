@@ -3,17 +3,15 @@
 
 {% block content %}
 
-<h1>Create a new case</h1>
+<h1>Add a service</h1>
 
-<a href="{% url 'cases-list' %}">
-    <img src="{% static 'cms/list_icon.png' %}" class="big_icons" title="Back to cases list">
-</a>
+<p>Case: <strong>{{ case.name }}</strong></p>
 
 <div class="form_new">
     <form action="" method="post" novalidate>
         {% csrf_token %}
         {{ form.as_p }}
-        <input class="submit_btn" type="submit" value="CREATE">
+        <input class="submit_btn" type="submit" value="ADD">
     </form>
 </div>
 

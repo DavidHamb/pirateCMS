@@ -1,22 +1,84 @@
 {% extends 'cms/base.html' %}
+{% load static %}
 
 {% block content %}
 
 <h1>{{ case.name }}</h1>
 
-<a href="{% url 'case-update' case.id %}">[Edit]</a>
-<a href="{% url 'case-delete' case.id %}">[Delete]</a>
-<a href="{% url 'cases-list' %}">[Back to cases list]</a>
+<a href="{% url 'cases-list' %}">
+    <img src="{% static 'cms/list_icon.png' %}" class="big_icons" title="Back to cases list">
+</a>
+<a href="{% url 'case-update' case.id %}">
+    <img  src="{% static 'cms/edit_icon.png' %}" class="big_icons" title="Edit the case" width="50" height="50">
+</a>
+<a href="{% url 'case-delete' case.id %}">
+    <img  src="{% static 'cms/delete_icon.png' %}" class="big_icons" title="Delete the case" width="50" height="50">
+</a>
 
-<ul>
-    <li><strong>Webpage : </strong>{{ case.webpage }}</li><br>
-    <li><strong>IP or Hostname : </strong>{{ case.address }}</li><br>
-    {% if case.description %}
-    <li><strong>Description : </strong>{{ case.description }}</li><br>
-    {% endif %}
-    <li><strong>State : </strong>{{ case.state }}</li><br>
-    <li><strong>Operating system : </strong>{{ case.OS }}</li><br>
-    <li><strong>Last update : </strong>{{ case.last_update }}</li>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
 </ul>
+{% endif %}
+
+<div class="flex-container">
+    <div style="flex-basis: 40%;">
+        <h2>General Information</h2>
+        <hr>
+        <ul>
+            <li><strong>Webpage : </strong><a href={{ case.webpage }} target="_blank">{{ case.webpage }}</a></li><br>
+            <li><strong>IP or Hostname : </strong>{{ case.address }}</li><br>
+            {% if case.description %}
+            <li><strong>Type : </strong>{{ case.type_of_target }}</li><br>
+            <li><strong>Description : </strong>{{ case.description }}</li><br>
+            {% endif %}
+            <li><strong>State : </strong>{{ case.state }}</li><br>
+            <li><strong>Operating system : </strong>{{ case.OS }}</li><br>
+            <li><strong>Last update : </strong>{{ case.last_update }}</li>
+        </ul>
+        <hr>
+        <h2>Exposed services</h2>
+        <p><a href="">Scan the target </a>|<a href="{% url 'add-service' case.id %}"> Add a new service</a></p>
+        <table>
+            <tr>
+                <th>Port</th>
+                <th>Service</th>
+                <th>Version</th>
+                <th>Checked</th>
+                <th>Vulnerable</th>
+                <th>Edit</th>
+                <th>Show method</th>
+            </tr>
+            {% for service in services %}
+            <tr>
+                <td>{{ service.port }}</td>
+                <td>{{ service.name }}</td>
+                <td>{{ service.version }}</td>
+                <td>{{ service.checked|yesno }}</td>
+                <td>{{ service.vulnerable|yesno }}</td>
+                <td style="text-align: center;">
+                    <a href="">
+                        <img src="{% static 'cms/edit_icon.png' %}" width="18" height="18" title="Edit">
+                    </a> 
+                </td>
+                <td style="text-align: center;">
+                    <a href="">
+                        <img src="{% static 'cms/method_icon.png' %}" width="18" height="18" title="Edit">
+                    </a> 
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div style="flex-basis: 60%;">
+        <h2>Methodology</h2>
+        <hr>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit.</p>
+    </div>
+
+</div>
+
 
 {% endblock %}
