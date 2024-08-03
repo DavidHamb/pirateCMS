@@ -71,6 +71,8 @@ def add_service(request, id):
             temporary_completion = form.save(commit=False)
             temporary_completion.linked_case = case
             temporary_completion.save() 
+            case.last_update = date.today()
+            case.save()
             return redirect('case-detail', case.id)
     else:
         form = AddServiceForm()
