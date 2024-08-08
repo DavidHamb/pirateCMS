@@ -93,3 +93,28 @@ class AddServiceForm(forms.ModelForm):
                 'placeholder': 'Version',
                 }),
         }
+
+class UpdateServiceForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        fields = ['port', 'name', 'version', 'checked', 'vulnerable']
+        widgets = {
+            'port': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                }),
+            'name': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                }),
+            'version': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                }),
+            'checked': forms.CheckboxInput(attrs={
+                'class': "form-control",
+                }),
+            'vulnerable': forms.CheckboxInput(attrs={
+                'class': "form-control",
+                }),
+        }

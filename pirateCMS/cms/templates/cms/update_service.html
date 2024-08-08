@@ -1,0 +1,20 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Update the service</h1>
+
+<a href="{% url 'case-detail' case.id %}">
+    <img  src="{% static 'cms/view_icon.png' %}" class="big_icons" title="Back to case details">
+</a>
+
+<p>Case: <strong>{{ service.linked_case }}</strong></p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="MODIFY" class="submit_btn">
+</form>
+
+{% endblock %}

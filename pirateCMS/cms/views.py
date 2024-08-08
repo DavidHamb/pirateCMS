@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from cms.models import Case, Service
-from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm
+from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm
 from django.contrib import messages
 from datetime import date
+import re
 
 def welcome(request):
     return render(request, 'cms/welcome.html')
@@ -78,3 +79,23 @@ def add_service(request, id):
         form = AddServiceForm()
 
     return render(request, 'cms/add_service.html', {'form': form, 'case': case}) 
+
+
+def update_service(request, id):
+    service = Service.objects.get(id=id)
+    case = Case.objects.get(id=service.linked_case_id)
+
+    if request.method == 'POST':
+        form = UpdateServiceForm(request.POST, instance=service)
+
+        if form.is_valid():
+            case.last_update = date.today()
+            case.save()
+            form.save()
+            messages.add_message(request, messages.INFO, "The service has been updated successfully ...")
+            return redirect('case-detail', case.id)
+
+    else:
+        form = UpdateServiceForm(instance=service)
+
+    return render (request, 'cms/update_service.html', {'form': form, 'service': service, 'case': case })
