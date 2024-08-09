@@ -99,3 +99,21 @@ def update_service(request, id):
         form = UpdateServiceForm(instance=service)
 
     return render (request, 'cms/update_service.html', {'form': form, 'service': service, 'case': case })
+
+
+def delete_service(request, id):
+    service = Service.objects.get(id=id)
+    case = Case.objects.get(id=service.linked_case_id)
+
+    if request.method == 'POST':
+        case.last_update = date.today()
+        case.save()
+        service.delete()
+        messages.add_message(request, messages.INFO, "The service has been deleted !")
+        return redirect('case-detail', case.id)
+    
+    return render(request, 'cms/delete_service.html', {'service': service, 'case': case})
+
+
+def default_methodology(request):
+    return render(request, 'cms/default_methodology.html')

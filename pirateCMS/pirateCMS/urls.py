@@ -28,4 +28,6 @@ urlpatterns = [
     path('cases/<int:id>/delete/', views.case_delete, name='case-delete'),
     path('cases/<int:id>/add_service/', views.add_service, name='add-service'),
     path('update_service/<int:id>/', views.update_service, name='update-service'),
+    path('delete_service/<int:id>/', views.delete_service, name='delete-service'),
+    path('default_methodology/', views.default_methodology, name='default-methodology'),
 ]

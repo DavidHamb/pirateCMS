@@ -1,0 +1,21 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Delete the service</h1>
+
+<a href="{% url 'case-detail' case.id %}">
+    <img  src="{% static 'cms/view_icon.png' %}" class="big_icons" title="Back to case details">
+</a>
+
+<p>Case: <strong>{{ case.name }}</strong></p>
+
+<p>Are you sure you want to delete the service : <strong>{{ service.name }}</strong> ?</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input class="submit_btn" type="submit" value="CONFIRM DELETION">
+</form>
+
+{% endblock %}
