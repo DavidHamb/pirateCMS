@@ -1,5 +1,5 @@
 from django import forms
-from cms.models import Case, Service
+from cms.models import Case, Service, Methodology
 
 STYLE_PARAMETERS = 'width: 500px; padding: 10px 30px; font-size: 16px;'
 PICKLIST_STYLE_PARAMETERS = 'width: 500px; padding: 10px 30px; font-size: 16px; background-color: #cceeff'
@@ -117,4 +117,27 @@ class UpdateServiceForm(forms.ModelForm):
             'vulnerable': forms.CheckboxInput(attrs={
                 'class': "form-control",
                 }),
+        }
+
+class MethodologyForm(forms.ModelForm):
+    class Meta:
+        model = Methodology
+        fields = ['related_port', 'name', 'description']
+
+        widgets = {
+            'related_port': forms.NumberInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Related port',
+                }),
+            'name': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Name',
+                }),                
+            'description': forms.Textarea(attrs={
+                'class': "form-control", 
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Please write a short summary and then all necessary steps to attack the target ...'
+                })
         }

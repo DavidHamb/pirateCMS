@@ -30,4 +30,6 @@ urlpatterns = [
     path('update_service/<int:id>/', views.update_service, name='update-service'),
     path('delete_service/<int:id>/', views.delete_service, name='delete-service'),
     path('default_methodology/', views.default_methodology, name='default-methodology'),
+    path('methodologies/', views.methodologies_list, name='methodologies-list'),
+    path('methodologies/add/', views.methodology_create, name='methodology-create'),
 ]

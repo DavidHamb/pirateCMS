@@ -5,7 +5,7 @@ class CaseAdmin(admin.ModelAdmin):
     list_display = ('name', 'webpage', 'address', 'description', 'state', 'OS', 'last_update', 'type_of_target')
 
 class MethodologyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'cve', 'related_service', 'version', 'documents', 'urls')
+    list_display = ('name', 'description', 'related_port')
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('name', 'port', 'version', 'checked', 'vulnerable', 'linked_methodology', 'linked_case')

@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from cms.models import Case, Service
-from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm
+from cms.models import Case, Service, Methodology
+from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyForm
 from django.contrib import messages
 from datetime import date
-import re
 
 def welcome(request):
     return render(request, 'cms/welcome.html')
@@ -117,3 +116,21 @@ def delete_service(request, id):
 
 def default_methodology(request):
     return render(request, 'cms/default_methodology.html')
+
+
+def methodologies_list(request):
+    methodologies = Methodology.objects.all()
+    return render(request, 'cms/methodologies.html', {'methodologies': methodologies})
+
+
+def methodology_create(request):
+    if request.method == 'POST':
+        form = MethodologyForm(request.POST)
+        if form.is_valid():
+            methodology = form.save()
+            messages.add_message(request, messages.INFO, "A new methodology has been successfully created! You can now edit the details ...")
+            return redirect('methodologies-list')
+    else:
+        form = MethodologyForm()
+
+    return render(request, 'cms/add_methodology.html', {'form': form})

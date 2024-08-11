@@ -34,13 +34,9 @@ class Case(models.Model):
         return f'{self.name}'
 
 class Methodology(models.Model):
+    related_port = models.fields.IntegerField(null=True, validators=[MaxValueValidator(65535)])
     name = models.fields.CharField(max_length=250, null=True, blank=True)
     description = models.fields.CharField(max_length=2000, null=True, blank=True)
-    cve = models.fields.CharField(max_length=20, null=True, blank=True)
-    related_service = models.fields.CharField(max_length=250, null=True, blank=True)
-    version = models.fields.CharField(max_length=10, null=True, blank=True)
-    documents = models.fields.CharField(max_length=100, null=True, blank=True)
-    urls = models.fields.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}'
