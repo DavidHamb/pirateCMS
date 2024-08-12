@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from cms.models import Case, Service, Methodology
-from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyForm
+from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyForm, MethodologyUpdateForm
 from django.contrib import messages
 from datetime import date
 
@@ -134,3 +134,20 @@ def methodology_create(request):
         form = MethodologyForm()
 
     return render(request, 'cms/add_methodology.html', {'form': form})
+
+
+def methodology_update(request, id):
+    methodology = Methodology.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = MethodologyUpdateForm(request.POST, instance=methodology)
+
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.INFO, "The method has been updated successfully ...")
+            return redirect('methodologies-list') # TODO rediriger vers le détail
+
+    else:
+        form = MethodologyUpdateForm(instance=methodology)
+
+    return render(request, 'cms/methodology_update.html', {'methodology': methodology, 'form': form})

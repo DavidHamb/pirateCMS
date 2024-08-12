@@ -141,3 +141,26 @@ class MethodologyForm(forms.ModelForm):
                 'placeholder': 'Please write a short summary and then all necessary steps to attack the target ...'
                 })
         }
+
+class MethodologyUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Methodology
+        fields = ['related_port', 'name', 'description']
+
+        widgets = {
+            'related_port': forms.NumberInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Port',
+                }),
+            'name': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Name',
+                }),
+            'description': forms.Textarea(attrs={
+                'class': "form-control", 
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Description'
+                })
+        }
