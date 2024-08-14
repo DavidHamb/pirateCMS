@@ -119,3 +119,7 @@ hr {
 h2 {
     color: slateblue;
 }
+
+.method_form textarea {
+    height: 750px;
+}

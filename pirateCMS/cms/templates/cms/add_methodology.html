@@ -8,11 +8,13 @@
 <p><a href="{% url 'methodologies-list' %}">Back to methodologies list</a></p>
 
 <div class="form_new">
-    <form action="" method="post" novalidate>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input class="submit_btn" type="submit" value="CREATE">
-    </form>
+    <div class="method_form">
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="submit_btn" type="submit" value="CREATE">
+        </form>
+    </div>
 </div>
 
 {% endblock %}

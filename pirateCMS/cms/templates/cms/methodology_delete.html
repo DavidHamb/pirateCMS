@@ -1,0 +1,17 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Delete the case</h1>
+
+<a href="{% url 'methodologies-list' %}">Back to methodologies list</a>
+
+<p>Are you sure you want to delete this methodology : <strong>{{ methodology.name }} {{ methodology.port}}</strong> ?</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input class="submit_btn" type="submit" value="CONFIRM DELETION">
+</form>
+
+{% endblock %}

@@ -33,4 +33,5 @@ urlpatterns = [
     path('methodologies/', views.methodologies_list, name='methodologies-list'),
     path('methodologies/add/', views.methodology_create, name='methodology-create'),
     path('methodologies/<int:id>/update/', views.methodology_update, name='update-methodology'),
+    path('methodologies/<int:id>/delete/', views.methodology_delete, name='delete-methodology'),
 ]

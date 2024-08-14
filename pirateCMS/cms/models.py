@@ -36,7 +36,7 @@ class Case(models.Model):
 class Methodology(models.Model):
     related_port = models.fields.IntegerField(null=True, validators=[MaxValueValidator(65535)])
     name = models.fields.CharField(max_length=250, null=True, blank=True)
-    description = models.fields.CharField(max_length=2000, null=True, blank=True)
+    description = models.fields.CharField(max_length=10000, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}'

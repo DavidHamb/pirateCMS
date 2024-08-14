@@ -151,3 +151,14 @@ def methodology_update(request, id):
         form = MethodologyUpdateForm(instance=methodology)
 
     return render(request, 'cms/methodology_update.html', {'methodology': methodology, 'form': form})
+
+
+def methodology_delete(request, id):
+    methodology = Methodology.objects.get(id=id)
+
+    if request.method == 'POST':
+        methodology.delete()
+        messages.add_message(request, messages.INFO, "The methodology has been deleted !")
+        return redirect('methodologies-list')
+    
+    return render(request, 'cms/methodology_delete.html', {'methodology': methodology})

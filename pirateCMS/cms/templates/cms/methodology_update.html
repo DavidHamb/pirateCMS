@@ -5,10 +5,12 @@
 
 <h1>Update the methodology</h1>
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="MODIFY" class="submit_btn">
-</form>
+<div class="method_form">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="MODIFY" class="submit_btn">
+    </form>
+</div>
 
 {% endblock %}
