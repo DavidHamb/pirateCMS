@@ -1,0 +1,32 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>{{ methodology.related_port }} {{ methodology.name }}</h1>
+
+</a>
+<a href="{% url 'update-methodology' methodology.id %}">
+    <img  src="{% static 'cms/method_icon.png' %}" class="big_icons" title="Edit the methods" width="50" height="50">
+</a>
+<a href="{% url 'delete-methodology' methodology.id %}">
+    <img  src="{% static 'cms/delete_icon.png' %}" class="big_icons" title="Delete the methods" width="50" height="50">
+</a>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="flex-container">
+    <div style="flex-basis: 100%;">
+        <h2>Methods steps and description</h2>
+        <hr>
+        {{ methodology.description|linebreaks }}
+    </div>
+</div>
+
+{% endblock %}

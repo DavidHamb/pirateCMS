@@ -73,6 +73,11 @@ def add_service(request, id):
             temporary_completion.save() 
             case.last_update = date.today()
             case.save()
+            # Creating an empty methodology (if doesn't exist yet)
+            if Methodology.objects.filter(related_port=temporary_completion.port).exists() == False:
+                methodology = Methodology()
+                methodology.related_port = temporary_completion.port
+                methodology.save()
             return redirect('case-detail', case.id)
     else:
         form = AddServiceForm()
@@ -123,18 +128,6 @@ def methodologies_list(request):
     return render(request, 'cms/methodologies.html', {'methodologies': methodologies})
 
 
-def methodology_create(request):
-    if request.method == 'POST':
-        form = MethodologyForm(request.POST)
-        if form.is_valid():
-            methodology = form.save()
-            messages.add_message(request, messages.INFO, "A new methodology has been successfully created! You can now edit the details ...")
-            return redirect('methodologies-list')
-    else:
-        form = MethodologyForm()
-
-    return render(request, 'cms/add_methodology.html', {'form': form})
-
 
 def methodology_update(request, id):
     methodology = Methodology.objects.get(id=id)
@@ -162,3 +155,8 @@ def methodology_delete(request, id):
         return redirect('methodologies-list')
     
     return render(request, 'cms/methodology_delete.html', {'methodology': methodology})
+
+
+def methodology_detail(request, id):
+    methodology = Methodology.objects.get(id=id)
+    return render(request, 'cms/methodology_detail.html', {'methodology': methodology})

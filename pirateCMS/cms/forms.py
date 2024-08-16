@@ -97,12 +97,8 @@ class AddServiceForm(forms.ModelForm):
 class UpdateServiceForm(forms.ModelForm):
     class Meta:
         model = Service
-        fields = ['port', 'name', 'version', 'checked', 'vulnerable']
+        fields = ['name', 'version', 'checked', 'vulnerable']
         widgets = {
-            'port': forms.TextInput(attrs={
-                'class': "form-control",
-                'style': STYLE_PARAMETERS,
-                }),
             'name': forms.TextInput(attrs={
                 'class': "form-control",
                 'style': STYLE_PARAMETERS,

@@ -31,7 +31,7 @@ urlpatterns = [
     path('delete_service/<int:id>/', views.delete_service, name='delete-service'),
     path('default_methodology/', views.default_methodology, name='default-methodology'),
     path('methodologies/', views.methodologies_list, name='methodologies-list'),
-    path('methodologies/add/', views.methodology_create, name='methodology-create'),
     path('methodologies/<int:id>/update/', views.methodology_update, name='update-methodology'),
     path('methodologies/<int:id>/delete/', views.methodology_delete, name='delete-methodology'),
+    path('methodologies/<int:id>/', views.methodology_detail, name='methodology-detail'),
 ]
