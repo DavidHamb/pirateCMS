@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from cms.models import Case, Service, Methodology
-from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyForm, MethodologyUpdateForm
+from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyUpdateForm
 from django.contrib import messages
 from datetime import date
 
@@ -117,10 +117,6 @@ def delete_service(request, id):
         return redirect('case-detail', case.id)
     
     return render(request, 'cms/delete_service.html', {'service': service, 'case': case})
-
-
-def default_methodology(request):
-    return render(request, 'cms/default_methodology.html')
 
 
 def methodologies_list(request):

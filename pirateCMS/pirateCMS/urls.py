@@ -29,7 +29,6 @@ urlpatterns = [
     path('cases/<int:id>/add_service/', views.add_service, name='add-service'),
     path('update_service/<int:id>/', views.update_service, name='update-service'),
     path('delete_service/<int:id>/', views.delete_service, name='delete-service'),
-    path('default_methodology/', views.default_methodology, name='default-methodology'),
     path('methodologies/', views.methodologies_list, name='methodologies-list'),
     path('methodologies/<int:id>/update/', views.methodology_update, name='update-methodology'),
     path('methodologies/<int:id>/delete/', views.methodology_delete, name='delete-methodology'),
