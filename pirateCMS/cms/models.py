@@ -43,7 +43,7 @@ class Methodology(models.Model):
 
 class Service(models.Model):
     name = models.fields.CharField(max_length=250, null=True)
-    port = models.fields.IntegerField(null=False, default=80, validators=[MaxValueValidator(65535)])
+    port = models.fields.IntegerField(null=False, default=0, validators=[MaxValueValidator(65535)])
     version = models.fields.CharField(max_length=10, null=True, blank=True)
     checked = models.fields.BooleanField(default=False)
     vulnerable = models.fields.BooleanField(default=False)
