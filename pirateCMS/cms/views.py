@@ -69,15 +69,25 @@ def add_service(request, id):
         if form.is_valid():
             # Save form data AND the linked case (as hidden value)
             temporary_completion = form.save(commit=False)
-            temporary_completion.linked_case = case
-            temporary_completion.save() 
-            case.last_update = date.today()
-            case.save()
-            # Creating an empty methodology (if doesn't exist yet)
-            if Methodology.objects.filter(related_port=temporary_completion.port).exists() == False:
+            if Methodology.objects.filter(related_port=temporary_completion.port).exists():
+                methodology = Methodology.objects.get(related_port=temporary_completion.port) ###########
+                temporary_completion.linked_methodology = methodology ################
+                temporary_completion.linked_case = case
+                temporary_completion.save() 
+                case.last_update = date.today()
+                case.save()
+            # Creating an empty methodology (if doesn't exist yet) and binding it to new service 
+            else:
                 methodology = Methodology()
                 methodology.related_port = temporary_completion.port
                 methodology.save()
+
+                temporary_completion.linked_case = case
+                temporary_completion.save() 
+                case.last_update = date.today()
+                case.save()
+                temporary_completion.linked_methodology = methodology
+                temporary_completion.save()
             return redirect('case-detail', case.id)
     else:
         form = AddServiceForm()
