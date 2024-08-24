@@ -1,0 +1,22 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Add a service</h1>
+
+<a href="{% url 'case-detail' case.id %}">
+    <img  src="{% static 'cms/view_icon.png' %}" class="big_icons" title="Back to case details">
+</a>
+
+<p>Case: <strong>{{ case.name }}</strong></p>
+
+<div class="form_new">
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="submit_btn" type="submit" value="SAVE">
+    </form>
+</div>
+
+{% endblock %}

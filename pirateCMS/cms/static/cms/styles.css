@@ -123,3 +123,22 @@ h2 {
 .method_form textarea {
     height: 750px;
 }
+
+.note_title {
+    color: slateblue;
+    font-weight: bold;
+}
+
+.note_date {
+    color: slateblue;
+    font-size: 10px;
+}
+
+.note_sep {
+    color: #dddddd;
+    border-width: 1px;
+}
+
+.note_text {
+    font-size: 14px;
+}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from cms.models import Case, Service, Methodology
-from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyUpdateForm
+from cms.models import Case, Service, Methodology, Note
+from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyUpdateForm, AddNoteForm
 from django.contrib import messages
 from datetime import date
 
@@ -16,7 +16,9 @@ def cases_list(request):
 def case_detail(request, id):
     case = Case.objects.get(id=id)
     services = Service.objects.filter(linked_case=case.id)
-    return render(request, 'cms/case_detail.html', {'case': case, 'services': services})
+    notes = Note.objects.filter(linked_case=case.id)
+    notes = notes.order_by('-id').values()
+    return render(request, 'cms/case_detail.html', {'case': case, 'services': services, 'notes': notes})
 
 
 def case_create(request):
@@ -166,3 +168,38 @@ def methodology_delete(request, id):
 def methodology_detail(request, id):
     methodology = Methodology.objects.get(id=id)
     return render(request, 'cms/methodology_detail.html', {'methodology': methodology})
+
+
+def add_note(request, id):
+    case = Case.objects.get(id=id)
+    form = AddNoteForm()
+
+    if request.method == 'POST':
+        form = AddNoteForm(request.POST)
+        if form.is_valid():
+
+            # Save form data AND the linked case (as hidden value)
+            temporary_completion = form.save(commit=False)
+            temporary_completion.linked_case = case
+            temporary_completion.save()
+            case.last_update = date.today()
+            case.save()
+            return redirect('case-detail', case.id)
+    else:
+        form = AddNoteForm()
+
+    return render(request, 'cms/add_note.html', {'form': form, 'case': case}) 
+
+
+def delete_note(request, id):
+    note = Note.objects.get(id=id)
+    case = Case.objects.get(id=note.linked_case_id)
+
+    if request.method == 'POST':
+        case.last_update = date.today()
+        case.save()
+        note.delete()
+        messages.add_message(request, messages.INFO, "The note has been deleted !")
+        return redirect('case-detail', case.id)
+    
+    return render(request, 'cms/delete_note.html', {'note': note, 'case': case})

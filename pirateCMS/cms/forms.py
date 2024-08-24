@@ -1,5 +1,5 @@
 from django import forms
-from cms.models import Case, Service, Methodology
+from cms.models import Case, Service, Methodology, Note
 
 STYLE_PARAMETERS = 'width: 500px; padding: 10px 30px; font-size: 16px;'
 PICKLIST_STYLE_PARAMETERS = 'width: 500px; padding: 10px 30px; font-size: 16px; background-color: #cceeff'
@@ -130,6 +130,24 @@ class MethodologyUpdateForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
                 'class': "form-control", 
                 'style': STYLE_PARAMETERS,
-                'placeholder': 'Description'
+                'placeholder': 'Begin with a few words describing the exposed service. Then describe the steps to follow ... '
                 })
+        }
+
+
+class AddNoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = ['title', 'text']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Title',
+                }),
+            'text': forms.Textarea(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Write your note ...',
+                }),
         }
