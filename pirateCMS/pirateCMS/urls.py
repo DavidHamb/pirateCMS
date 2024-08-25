@@ -35,4 +35,5 @@ urlpatterns = [
     path('methodologies/<int:id>/', views.methodology_detail, name='methodology-detail'),
     path('cases/<int:id>/add_note/', views.add_note, name='add-note'),
     path('delete_note/<int:id>/', views.delete_note, name='delete-note'),
+    path('default_method', views.default_method, name='default-method'),
 ]

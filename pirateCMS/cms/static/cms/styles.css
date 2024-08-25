@@ -142,3 +142,22 @@ h2 {
 .note_text {
     font-size: 14px;
 }
+
+.steps_and_methods{
+    color:slateblue;
+    font-size: 14px;
+}
+
+.default_methods {
+    color: slateblue;
+    font-size: 14px;
+    border: solid #cceeff 1px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+.default_methods li {
+    list-style-type: circle;
+}

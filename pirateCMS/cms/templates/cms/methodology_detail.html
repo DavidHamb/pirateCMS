@@ -12,6 +12,9 @@
 <a href="{% url 'delete-methodology' methodology.id %}">
     <img  src="{% static 'cms/delete_icon.png' %}" class="big_icons" title="Delete the methods" width="50" height="50">
 </a>
+<a href="{% url 'default-method' %}" target="_blank">
+    <img  src="{% static 'cms/way_icon.png' %}" class="big_icons" title="Show default methods" width="50" height="50">
+</a>
 
 {% if messages %}
 <ul class="messages">
@@ -25,7 +28,9 @@
     <div style="flex-basis: 100%;">
         <h2>Methods steps and description</h2>
         <hr>
-        {{ methodology.description|linebreaks }}
+        <div class="steps_and_methods">
+            {{ methodology.description|linebreaks }}
+        </div>
     </div>
 </div>
 

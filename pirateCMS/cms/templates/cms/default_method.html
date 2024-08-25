@@ -1,0 +1,35 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Default methods</h1>
+
+<p>What do we do when faced with a new, unfamiliar service?</p>
+
+<div class="default_methods">
+    <ul>
+        <li>Is there a <strong>web interface</strong> ? See the web service methodologies ... Just like those linked to port 80.</li><br>
+        <li>Find the <strong>version</strong></li><br>
+        <li>Can't you find <strong>default credentials</strong> ?</li><br>
+        <li><strong>Searchsploit</strong> and <strong>Metasploit</strong> results ?</li><br>
+        <li>Type in <strong>Google</strong> :</li>
+        <ul>
+            <li>"service_name service_version exploit"</li>
+            <li>"service_name AND site:hackingarticles.in"</li>
+            <li>"service_name AND site:hacktricks.xyz"</li>
+        </ul><br> 
+        <li>Read the <strong>documentation</strong> :</li>
+        <ul>
+            <li>Identify <strong>dependencies</strong> : one of them could be vulnerable</li>
+            <li>Identify default <strong>credentials</strong></li>
+            <li>Read any chapter dealing with <strong>security issues</strong></li>
+            <li>Become familiar with basic <strong>usage</strong></li>
+            <li>Get the <strong>source code</strong> and read it (do some reverse engeneering)</li>
+        </ul><br>
+        <li>Finally, <strong>report</strong> all usefull findings in a new methodology !</li>
+    </ul>  
+</div> 
+
+
+{% endblock %}

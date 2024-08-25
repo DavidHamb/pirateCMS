@@ -203,3 +203,6 @@ def delete_note(request, id):
         return redirect('case-detail', case.id)
     
     return render(request, 'cms/delete_note.html', {'note': note, 'case': case})
+
+def default_method(request):
+    return render(request, 'cms/default_method.html')
