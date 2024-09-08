@@ -1,0 +1,22 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Add a ressource</h1>
+
+<a href="{% url 'methodology-detail' methodology.id %}">
+    <img  src="{% static 'cms/method_icon.png' %}" class="big_icons" title="Back to methodology details">
+</a>
+
+<p>Methodology: <strong>{{ methodology.name }}</strong></p>
+
+<div class="form_new">
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="submit_btn" type="submit" value="ADD">
+    </form>
+</div>
+
+{% endblock %}

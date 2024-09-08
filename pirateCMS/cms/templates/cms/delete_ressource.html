@@ -1,0 +1,21 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Delete the ressource</h1>
+
+<a href="{% url 'methodology-detail' methodology.id %}">
+    <img  src="{% static 'cms/method_icon.png' %}" class="big_icons" title="Back to methodology details">
+</a>
+
+<p>Methodology: <strong>{{ methodology.name }}</strong></p>
+
+<p>Are you sure you want to delete the ressource : <strong>{{ ressource.title }}</strong> ?</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input class="submit_btn" type="submit" value="CONFIRM DELETION">
+</form>
+
+{% endblock %}

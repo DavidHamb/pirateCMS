@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from cms.models import Case, Service, Methodology, Note
-from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyUpdateForm, AddNoteForm
+from cms.models import Case, Service, Methodology, Note, Ressource
+from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyUpdateForm, AddNoteForm, AddRessourceForm
 from django.contrib import messages
 from datetime import date
 
@@ -167,7 +167,8 @@ def methodology_delete(request, id):
 
 def methodology_detail(request, id):
     methodology = Methodology.objects.get(id=id)
-    return render(request, 'cms/methodology_detail.html', {'methodology': methodology})
+    ressources = Ressource.objects.filter(linked_methodology=methodology.id)
+    return render(request, 'cms/methodology_detail.html', {'methodology': methodology, 'ressources': ressources})
 
 
 def add_note(request, id):
@@ -206,3 +207,34 @@ def delete_note(request, id):
 
 def default_method(request):
     return render(request, 'cms/default_method.html')
+
+
+def add_ressource(request, id):
+    methodology = Methodology.objects.get(id=id)
+    form = AddRessourceForm()
+
+    if request.method == 'POST':
+        form = AddRessourceForm(request.POST)
+        if form.is_valid():
+
+            # Save form data AND the linked methodology (as hidden value)
+            temporary_completion = form.save(commit=False)
+            temporary_completion.linked_methodology = methodology
+            temporary_completion.save()
+            return redirect('methodology-detail', methodology.id)
+    else:
+        form = AddRessourceForm()
+
+    return render(request, 'cms/add_ressource.html', {'form': form, 'methodology': methodology}) 
+
+
+def delete_ressource(request, id):
+    ressource = Ressource.objects.get(id=id)
+    methodology = Methodology.objects.get(id=ressource.linked_methodology_id)
+
+    if request.method == 'POST':
+        ressource.delete()
+        messages.add_message(request, messages.INFO, "The ressource has been deleted !")
+        return redirect('methodology-detail', methodology.id)
+    
+    return render(request, 'cms/delete_ressource.html', {'ressource': ressource, 'methodology': methodology})

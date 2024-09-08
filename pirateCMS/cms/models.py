@@ -61,5 +61,13 @@ class Note(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+    
+class Ressource(models.Model):
+    title = models.fields.CharField(max_length=50, null=True)
+    url = models.fields.URLField(null=True)
+    linked_methodology = models.ForeignKey(Methodology, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.title}'
 
 

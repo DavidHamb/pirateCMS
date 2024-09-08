@@ -36,4 +36,6 @@ urlpatterns = [
     path('cases/<int:id>/add_note/', views.add_note, name='add-note'),
     path('delete_note/<int:id>/', views.delete_note, name='delete-note'),
     path('default_method', views.default_method, name='default-method'),
+    path('methodologies/<int:id>/add_ressource/', views.add_ressource, name='add-ressource'),
+    path('delete_ressource/<int:id>', views.delete_ressource, name='delete-ressource'),
 ]
