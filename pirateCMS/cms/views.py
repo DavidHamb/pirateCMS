@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from cms.models import Case, Service, Methodology, Note, Ressource
-from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyUpdateForm, AddNoteForm, AddRessourceForm
+from cms.models import Case, Service, Methodology, Note, Ressource, Privesc
+from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyUpdateForm, AddNoteForm, AddRessourceForm, UpdatePrivescForm
 from django.contrib import messages
 from datetime import date
 
@@ -18,7 +18,8 @@ def case_detail(request, id):
     services = Service.objects.filter(linked_case=case.id)
     notes = Note.objects.filter(linked_case=case.id)
     notes = notes.order_by('-id').values()
-    return render(request, 'cms/case_detail.html', {'case': case, 'services': services, 'notes': notes})
+    privesc = Privesc.objects.get(os=case.OS)
+    return render(request, 'cms/case_detail.html', {'case': case, 'services': services, 'notes': notes, 'privesc': privesc})
 
 
 def case_create(request):
@@ -238,3 +239,19 @@ def delete_ressource(request, id):
         return redirect('methodology-detail', methodology.id)
     
     return render(request, 'cms/delete_ressource.html', {'ressource': ressource, 'methodology': methodology})
+
+
+def privesc(request, id):
+    privesc = Privesc.objects.get(id=id)
+    return render(request, 'cms/privesc.html', {'privesc': privesc})
+
+
+def privesc_update(request, id):
+    privesc = Privesc.objects.get(id=id)
+    form = UpdatePrivescForm
+
+    if request.method == 'POST':
+        privesc.save()
+        return redirect('privesc', privesc.id)
+    
+    return render(request, 'cms/update_privesc.html', {'form': form, 'privesc': privesc})

@@ -1,0 +1,28 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>
+    {% if privesc.os == 'Windows' %}
+        {{ privesc.os }} Privilege Escalation<img src="{% static 'cms/Windows_logo.png' %}" width="55" height="55" align="right" style="margin-right: 100px;">
+    {% elif privesc.os == 'Linux' %}
+        {{ privesc.os }} Privilege Escalation<img src="{% static 'cms/Linux_logo.png' %}" width="55" height="55" align="right" style="margin-right: 100px;">
+    {% endif %}
+</h1>
+
+<div class="flex-container">
+    <div style="flex-basis: 75%;">
+        <h2>Basic steps</h2>
+        <hr>
+        <a href="{% url 'privesc-update' privesc.id %}"><img src="{% static 'cms/edit_icon.png' %}" class="big_icons" title="Edit the privesc basic steps" width="18" height="18"></a>
+        <p>{{ privesc.text }}</p>
+    </div>
+    <div style="flex-basis: 25%;">
+        <h2>Privesc specials</h2>
+        <hr>
+        <p>blablabla</p>
+    </div>
+</div>
+
+{% endblock %}

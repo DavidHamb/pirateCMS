@@ -1,5 +1,5 @@
 from django import forms
-from cms.models import Case, Service, Methodology, Note, Ressource
+from cms.models import Case, Service, Methodology, Note, Ressource, Privesc
 
 STYLE_PARAMETERS = 'width: 500px; padding: 10px 30px; font-size: 16px;'
 PICKLIST_STYLE_PARAMETERS = 'width: 500px; padding: 10px 30px; font-size: 16px; background-color: #cceeff'
@@ -167,5 +167,18 @@ class AddRessourceForm(forms.ModelForm):
                 'class': "form-control",
                 'style': STYLE_PARAMETERS,
                 'placeholder': 'url',
+                }),
+        }
+
+
+class UpdatePrivescForm(forms.ModelForm):
+    class Meta:
+        model = Privesc
+        fields = ['text']
+        widgets = {
+            'text': forms.Textarea(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Steps',
                 }),
         }

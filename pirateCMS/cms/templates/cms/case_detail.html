@@ -34,7 +34,11 @@
             <li><strong>Type : </strong>{{ case.type_of_target }}</li><br>
             <li><strong>Description : </strong>{{ case.description }}</li><br>
             {% endif %}
-            <li><strong>State : </strong>{{ case.state }}</li><br>
+            {% if case.state == 'Privilege escalation' %}
+                <li><strong>State : </strong><a href="{% url 'privesc' privesc.id %}" target="_blank">{{ case.state }}</a></li><br>
+            {% else %}
+                <li><strong>State : </strong>{{ case.state }}</li><br>
+            {% endif %}
             <li><strong>Operating system : </strong>{{ case.OS }}</li><br>
             <li><strong>Last update : </strong>{{ case.last_update }}</li>
         </ul>

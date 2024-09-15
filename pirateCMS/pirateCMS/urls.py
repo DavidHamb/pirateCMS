@@ -38,4 +38,6 @@ urlpatterns = [
     path('default_method', views.default_method, name='default-method'),
     path('methodologies/<int:id>/add_ressource/', views.add_ressource, name='add-ressource'),
     path('delete_ressource/<int:id>', views.delete_ressource, name='delete-ressource'),
+    path('privesc/<int:id>/', views.privesc, name='privesc'),
+    path('privesc/<int:id>/update', views.privesc_update, name='privesc-update'),
 ]

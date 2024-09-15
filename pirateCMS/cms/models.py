@@ -69,5 +69,12 @@ class Ressource(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+    
+class Privesc(models.Model):
+    os = models.fields.CharField(max_length=7, null=True)
+    text = models.fields.CharField(max_length=20000, null=True)
+
+    def __str__(self):
+        return f'{self.os}'
 
 
