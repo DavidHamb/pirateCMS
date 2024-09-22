@@ -16,13 +16,49 @@
         <h2>Basic steps</h2>
         <hr>
         <a href="{% url 'privesc-update' privesc.id %}"><img src="{% static 'cms/edit_icon.png' %}" class="big_icons" title="Edit the privesc basic steps" width="18" height="18"></a>
-        <p>{{ privesc.text }}</p>
+        <div class="steps_and_methods">
+            <p>{{ privesc.text|linebreaks }}</p>
+        </div>
     </div>
     <div style="flex-basis: 25%;">
-        <h2>Privesc specials</h2>
+        <h2>Ressources</h2>
         <hr>
-        <p>blablabla</p>
+        <a href="{% url 'add-privesc-ressource' privesc.id %}">
+            <img src="{% static 'cms/book_icon.png' %}" class = 'big_icons', title= 'Add a ressource', width="18" height="18">
+        </a>
+        {% for ressource in ressources %}
+        <ul>
+            <li style="font-size: 12px;"><a href="{{ ressource.url }}" target="_blank">{{ ressource.title }}</a></li>
+        </ul>
+        {% endfor %}
+        <hr>
+        <h2>Privesc specials</h2>
+        <a href="{% url 'privesc-add-special' privesc.id %}">
+            <img src="{% static 'cms/method_icon.png' %}" class = 'big_icons', title= 'Add a special vulnerability', width="18" height="18">
+        </a>
+        
+        <form role="search" method="POST">
+            {% csrf_token %}
+            <input type="search" placeholder="Enter any keyword" name="search_query">
+            <button type="submit">Search an exploit</button>
+           </form>
+        
+        {% if specials %}   
+            {% for special in specials %}
+                <ul>
+                    <li>
+                        <span style="color: slateblue; font-weight: bold;">{{ special.title }}</span>
+                        <a href="{% url 'delete-privesc-special' special.id %}">
+                            <img src="{% static 'cms/delete_icon.png' %}" align="right" width="18" height="18" title="Delete {{ special.title }}">
+                        </a><br>
+                        <span style="font-size: 10px;">{{ special.description }}</span><br>
+                        <span style="font-size: 10px;"><a href={{ special.url }} target="_blank">{{ special.url }}</a></span>
+                    </li>
+                </ul>
+            {% endfor %}
+        {% else %}
+                <p>No results found</p>
+        {% endif %}
     </div>
 </div>
-
 {% endblock %}

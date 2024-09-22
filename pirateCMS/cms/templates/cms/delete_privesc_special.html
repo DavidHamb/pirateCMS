@@ -3,18 +3,17 @@
 
 {% block content %}
 
-<h1>Update privesc steps</h1>
+<h1>Delete the privesc special vulnerability</h1>
 
 <a href="{% url 'privesc' privesc.id %}">
     <img  src="{% static 'cms/method_icon.png' %}" class="big_icons" title="Back to privesc steps">
 </a>
 
-<p>System : <strong>{{ privesc.os }}</strong></p>
+<p>Are you sure you want to delete this privesc special : <strong>{{ privesc_special.title }}</strong> ?</p>
 
-<form class= "method_form" action="" method="post">
+<form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="MODIFY" class="submit_btn">
+    <input class="submit_btn" type="submit" value="CONFIRM DELETION">
 </form>
 
 {% endblock %}

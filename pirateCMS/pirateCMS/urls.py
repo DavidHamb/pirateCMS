@@ -40,4 +40,7 @@ urlpatterns = [
     path('delete_ressource/<int:id>', views.delete_ressource, name='delete-ressource'),
     path('privesc/<int:id>/', views.privesc, name='privesc'),
     path('privesc/<int:id>/update', views.privesc_update, name='privesc-update'),
+    path('privesc/<int:id>/add_special', views.privesc_add_special, name='privesc-add-special'),
+    path('delete_privesc_special/<int:id>', views.delete_privesc_special, name='delete-privesc-special'),
+    path('privesc/<int:id>/add_privesc_ressource/', views.add_privesc_ressource, name='add-privesc-ressource'),
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from cms.models import Case, Service, Methodology, Note, Ressource, Privesc
-from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyUpdateForm, AddNoteForm, AddRessourceForm, UpdatePrivescForm
+from cms.models import Case, Service, Methodology, Note, Ressource, Privesc, SpecialPrivesc, RessourcePrivesc
+from cms.forms import CaseForm, CaseUpdateForm, AddServiceForm, UpdateServiceForm, MethodologyUpdateForm, AddNoteForm, AddRessourceForm, UpdatePrivescForm, AddSpecialPrivescForm, AddPrivescRessourceForm
 from django.contrib import messages
 from datetime import date
 
@@ -18,7 +18,10 @@ def case_detail(request, id):
     services = Service.objects.filter(linked_case=case.id)
     notes = Note.objects.filter(linked_case=case.id)
     notes = notes.order_by('-id').values()
-    privesc = Privesc.objects.get(os=case.OS)
+    if case.OS == 'Unknown':
+        privesc = None
+    else: 
+        privesc = Privesc.objects.get(os=case.OS)
     return render(request, 'cms/case_detail.html', {'case': case, 'services': services, 'notes': notes, 'privesc': privesc})
 
 
@@ -243,15 +246,80 @@ def delete_ressource(request, id):
 
 def privesc(request, id):
     privesc = Privesc.objects.get(id=id)
-    return render(request, 'cms/privesc.html', {'privesc': privesc})
+    specials = SpecialPrivesc.objects.filter(linked_os=privesc.id)
+    ressources = RessourcePrivesc.objects.filter(linked_os=privesc.id)
+
+    if request.method == 'POST':
+        search_query = request.POST['search_query']
+        specials = SpecialPrivesc.objects.filter(title__contains=search_query) | SpecialPrivesc.objects.filter(description__contains=search_query)
+        return render(request, 'cms/privesc.html', {'privesc': privesc, 'query': search_query, 'specials': specials, 'ressources': ressources})
+
+    return render(request, 'cms/privesc.html', {'privesc': privesc, 'specials': specials, 'ressources': ressources})
 
 
 def privesc_update(request, id):
     privesc = Privesc.objects.get(id=id)
-    form = UpdatePrivescForm
-
+    
     if request.method == 'POST':
-        privesc.save()
-        return redirect('privesc', privesc.id)
+        form = UpdatePrivescForm(request.POST, instance=privesc)
+
+        if form.is_valid():
+            privesc.save()
+            return redirect('privesc', privesc.id)
+    
+    else:
+        form = UpdatePrivescForm(instance=privesc)
     
     return render(request, 'cms/update_privesc.html', {'form': form, 'privesc': privesc})
+
+
+def privesc_add_special(request, id):
+    privesc = Privesc.objects.get(id=id)
+    form = AddSpecialPrivescForm()
+
+    if request.method == 'POST':
+        form = AddSpecialPrivescForm(request.POST)
+        if form.is_valid():
+            # save form data AND the linked os (as hidden value)
+            temporary_completion = form.save(commit=False)
+            temporary_completion.linked_os = privesc
+            temporary_completion.save()
+            return redirect('privesc', privesc.id)
+        
+        else:
+            form = AddSpecialPrivescForm()
+
+    return render(request, 'cms/privesc_add_special.html', {'privesc': privesc, 'form': form})
+
+
+def delete_privesc_special(request, id):
+    privesc_special = SpecialPrivesc.objects.get(id=id)
+    privesc = Privesc.objects.get(id=privesc_special.linked_os_id)
+
+    if request.method == 'POST':
+        privesc_special.delete()
+        return redirect('privesc', privesc.id)
+    
+    return render(request, 'cms/delete_privesc_special.html', {'privesc_special': privesc_special, 'privesc': privesc})
+
+
+def add_privesc_ressource(request, id):
+    privesc = Privesc.objects.get(id=id)
+    form = AddPrivescRessourceForm()
+
+    if request.method == 'POST':
+        form = AddPrivescRessourceForm(request.POST)
+        if form.is_valid():
+
+            # Save form data AND the linked case (as hidden value)
+            temporary_completion = form.save(commit=False)
+            temporary_completion.linked_os = privesc
+            temporary_completion.save()
+            return redirect('privesc', privesc.id)
+    else:
+        form = AddPrivescRessourceForm()
+
+    return render(request, 'cms/add_privesc_ressource.html', {'form': form, 'privesc': privesc}) 
+
+
+

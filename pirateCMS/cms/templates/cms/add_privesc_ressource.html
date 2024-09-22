@@ -1,0 +1,22 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Add a Privesc Ressource</h1>
+
+<a href="{% url 'privesc' privesc.id %}">
+    <img  src="{% static 'cms/view_icon.png' %}" class="big_icons" title="Back to privesc steps">
+</a>
+
+<p>System: <strong>{{ privesc.os }}</strong></p>
+
+<div class="form_new">
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="submit_btn" type="submit" value="SAVE">
+    </form>
+</div>
+
+{% endblock %}

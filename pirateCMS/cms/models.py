@@ -76,5 +76,24 @@ class Privesc(models.Model):
 
     def __str__(self):
         return f'{self.os}'
+    
+
+class SpecialPrivesc(models.Model):
+    title = models.fields.CharField(max_length=50, null=True)
+    description = models.fields.CharField(max_length=1000, null=True)
+    url = models.fields.URLField(null=True)
+    linked_os = models.ForeignKey(Privesc, null=True, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f'{self.title}'
+    
+
+class RessourcePrivesc(models.Model):
+    title = models.fields.CharField(max_length=50, null=True)
+    url = models.fields.URLField(null=True)
+    linked_os = models.ForeignKey(Privesc, null=True, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f'{self.title}'
 
 

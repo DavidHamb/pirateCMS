@@ -1,5 +1,5 @@
 from django import forms
-from cms.models import Case, Service, Methodology, Note, Ressource, Privesc
+from cms.models import Case, Service, Methodology, Note, Ressource, Privesc, SpecialPrivesc, RessourcePrivesc
 
 STYLE_PARAMETERS = 'width: 500px; padding: 10px 30px; font-size: 16px;'
 PICKLIST_STYLE_PARAMETERS = 'width: 500px; padding: 10px 30px; font-size: 16px; background-color: #cceeff'
@@ -180,5 +180,46 @@ class UpdatePrivescForm(forms.ModelForm):
                 'class': "form-control",
                 'style': STYLE_PARAMETERS,
                 'placeholder': 'Steps',
+                }),
+        }
+
+
+class AddSpecialPrivescForm(forms.ModelForm):
+    class Meta:
+        model = SpecialPrivesc
+        fields = ['title', 'description', 'url']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Title',
+                }),
+            'description': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Description',
+                }),
+            'url': forms.URLInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'url',
+                }),
+        }
+
+
+class AddPrivescRessourceForm(forms.ModelForm):
+    class Meta:
+        model = RessourcePrivesc
+        fields = ['title', 'url']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'Title',
+                }),
+            'url': forms.URLInput(attrs={
+                'class': "form-control",
+                'style': STYLE_PARAMETERS,
+                'placeholder': 'URL ...',
                 }),
         }

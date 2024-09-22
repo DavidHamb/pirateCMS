@@ -1,0 +1,17 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Add a special {{ privesc.os }} vulnerability</h1>
+
+<div class="form_new">
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="submit_btn" type="submit" value="SAVE">
+    </form>
+</div>
+
+
+{% endblock %}
