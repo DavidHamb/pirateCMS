@@ -194,7 +194,7 @@ class AddSpecialPrivescForm(forms.ModelForm):
                 'style': STYLE_PARAMETERS,
                 'placeholder': 'Title',
                 }),
-            'description': forms.TextInput(attrs={
+            'description': forms.Textarea(attrs={
                 'class': "form-control",
                 'style': STYLE_PARAMETERS,
                 'placeholder': 'Description',
